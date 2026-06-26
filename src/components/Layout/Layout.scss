@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  overflow: hidden;
+  transition: all $transition-normal;
+  position: relative;
+}
+
+.page-body {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include custom-scrollbar;
+  background: var(--bg-primary);
+
+  @include mobile {
+    padding: 16px;
+  }
+}

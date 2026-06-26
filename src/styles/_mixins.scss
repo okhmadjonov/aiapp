@@ -1,0 +1,108 @@
+@import 'variables';
+
+// Flat Panel Mixin
+@mixin glass-panel($hover-glow: false) {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  transition: all $transition-normal;
+
+  @if $hover-glow {
+    &:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--border-focus);
+    }
+  }
+}
+
+// Flex Centering Shortcuts
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Hide scrollbar but keep functional
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+// Custom Scrollbar styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-primary-rgb), 0.2);
+    border-radius: 4px;
+    &:hover {
+      background: rgba(var(--color-primary-rgb), 0.4);
+    }
+  }
+}
+
+// Media Queries (Breakpoints)
+@mixin mobile {
+  @media (max-width: 640px) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) { @content; }
+}
+
+// Keyframes & Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+  }
+}

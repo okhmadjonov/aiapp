@@ -1,0 +1,310 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.dashboard-welcome {
+  h1 {
+    font-size: var(--font-size-h1);
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+  p {
+    font-size: var(--font-size-body);
+    color: var(--text-secondary);
+  }
+}
+
+// KPI Grid
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 130px;
+}
+
+.metric-header {
+  @include flex-between;
+  
+  .metric-label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .metric-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: $border-radius-sm;
+    @include flex-center;
+    font-size: 1.25rem;
+    box-shadow: none;
+
+    &.indigo {
+      background: rgba(19, 55, 78, 0.4);
+      color: #3b82f6;
+    }
+    &.teal {
+      background: rgba(20, 184, 166, 0.15);
+      color: #14b8a6;
+    }
+    &.blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+    }
+    &.amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+  }
+}
+
+.metric-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .metric-value {
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .metric-trend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+
+    &.up {
+      color: #10b981;
+    }
+
+    &.down {
+      color: #ef4444;
+    }
+
+    .trend-lbl {
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-left: 4px;
+    }
+  }
+}
+
+// Charts Layout Grid
+.charts-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  padding: 24px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// System Resources & Checklist Monitor Grid
+.system-monitor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+
+  svg {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+  }
+
+  h3 {
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+}
+
+// Resource bar styles
+.resource-bars-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bar-info {
+    @include flex-between;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    
+    &.blue { background: #3b82f6; }
+    &.teal { background: #14b8a6; }
+    &.amber { background: #f59e0b; }
+  }
+
+  .status-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+
+      &.success { background: #10b981; }
+    }
+  }
+}
+
+// Checklist Styles
+.checklist-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-item-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--font-size-body);
+  color: var(--text-secondary);
+
+  input {
+    display: none; // Hide checkbox
+
+    &:checked + .checkmark-box {
+      background: #13374E;
+      border-color: #13374E;
+
+      &::after {
+        display: block;
+      }
+    }
+  }
+
+  .checkmark-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    transition: all $transition-fast;
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid #efefef;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  .text-label {
+    transition: color $transition-fast;
+
+    &.completed {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+  }
+}
+
+// Activity Logging Card
+.activity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .card-header {
+    @include flex-between;
+    
+    h3 {
+      font-size: var(--font-size-h3);
+      color: var(--text-primary);
+    }
+  }
+}
+
+[data-theme="light"] {
+  .resource-bars-stack .progress-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .checklist-item-label input:checked + .checkmark-box {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}

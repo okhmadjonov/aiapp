@@ -1,0 +1,189 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Side tab selectors
+.settings-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+
+  .tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: $border-radius-md;
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    text-align: left;
+    width: 100%;
+
+    svg {
+      font-size: 1.15rem;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+    }
+
+    &.active {
+      background: var(--grad-primary);
+      color: var(--text-inverse);
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
+    }
+  }
+}
+
+.settings-content {
+  padding: 30px;
+  
+  @include mobile {
+    padding: 20px;
+  }
+
+  .tab-title {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+  }
+}
+
+// Profile settings features
+.avatar-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+
+  .settings-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+// System Configurations settings list
+.system-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setting-toggle-row {
+  @include flex-between;
+  gap: 20px;
+
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  &.danger-zone {
+    padding: 16px;
+    background: rgba(239, 68, 68, 0.04);
+    border: 1.5px dashed rgba(239, 68, 68, 0.2);
+    border-radius: $border-radius-md;
+  }
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 10px 0;
+}
+
+// Premium Toggle Switch Slider
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  flex-shrink: 0;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle-slider {
+      background: var(--grad-primary);
+      
+      &::before {
+        transform: translateX(20px);
+      }
+    }
+
+    &:focus + .toggle-slider {
+      box-shadow: 0 0 1px var(--color-primary);
+    }
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .3s;
+    border-radius: 34px;
+    border: 1px solid var(--border-color);
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+[data-theme="light"] {
+  .avatar-preview-row input {
+    background: rgba(255, 255, 255, 0.8) !important;
+    &:focus {
+      background: #ffffff !important;
+    }
+  }
+  .toggle-slider {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

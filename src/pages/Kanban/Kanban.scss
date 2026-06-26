@@ -1,0 +1,213 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.kanban-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Board Columns container
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  @include custom-scrollbar;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kanban-column {
+  background: rgba(17, 24, 39, 0.4);
+  border: 1px solid var(--border-color);
+  backdrop-filter: var(--glass-blur);
+  border-radius: $border-radius-lg;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 480px;
+  transition: all $transition-fast;
+
+  &.dragging-over {
+    border-color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.08);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.column-header {
+  @include flex-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+
+  h3 {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .task-count {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.empty-column-placeholder {
+  border: 1.5px dashed var(--border-color);
+  border-radius: $border-radius-md;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  @include flex-center;
+  flex: 1;
+}
+
+// Kanban Card Item
+.task-card {
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: $border-radius-md;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition: all $transition-fast;
+
+  &:hover {
+    box-shadow: var(--shadow-md), 0 0 10px rgba(var(--color-primary-rgb), 0.1);
+    border-color: rgba(var(--color-primary-rgb), 0.4);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.task-card-header {
+  @include flex-between;
+
+  .priority-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+
+    &.low {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--color-success);
+    }
+    &.medium {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--color-warning);
+    }
+    &.high {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--color-danger);
+    }
+  }
+
+  .delete-task-btn {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 4px;
+
+    &:hover {
+      color: var(--color-danger);
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+.task-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.task-card-footer {
+  @include flex-between;
+  margin-top: 4px;
+
+  .task-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    
+    svg {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Mobile column quick-switch buttons
+.mobile-move-controls {
+  display: none;
+  gap: 4px;
+
+  @include tablet {
+    display: flex;
+  }
+
+  button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 3px;
+    border-radius: 4px;
+    @include flex-center;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &:hover:not(:disabled) {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+}
+
+[data-theme="light"] {
+  .kanban-column {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .task-card {
+    background: #ffffff;
+  }
+}

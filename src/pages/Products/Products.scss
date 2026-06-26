@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.products-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Sorting indicators in table headers
+th svg {
+  vertical-align: middle;
+  margin-left: 6px;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+}
+
+[data-theme="light"] {
+  th svg {
+    color: var(--color-primary);
+  }
+}
